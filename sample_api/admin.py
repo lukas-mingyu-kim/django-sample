@@ -4,5 +4,4 @@ from sample_api import models
 
 
 admin.site.register(models.AtmUser)
-admin.site.register(models.ProfileFeedItem)
 admin.site.register(models.Account)

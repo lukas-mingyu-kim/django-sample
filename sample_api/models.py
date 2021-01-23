@@ -26,7 +26,7 @@ class AtmUserManager(BaseUserManager):
 
 
 class AtmUser(AbstractBaseUser, PermissionsMixin):
-    card_num = models.CharField(max_length=255, unique=True)
+    card_num = models.CharField(max_length=20, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -40,16 +40,5 @@ class Account(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
-    account_num = models.CharField(max_length=30, unique=True)
+    account_num = models.CharField(max_length=20, unique=True)
     balance = models.IntegerField(default=0)
-
-
-class ProfileFeedItem(models.Model):
-    user_profile = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
-    )
-    status_text = models.CharField(max_length=255)
-    created_on = models.DateTimeField(auto_now_add=True)
-
-

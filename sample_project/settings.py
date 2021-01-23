@@ -118,33 +118,8 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'sample_api.AtmUser'
 
-# REST_FRAMEWORK = {
-# #     'DEFAULT_PERMISSION_CLASSES': (
-# #         'rest_framework.permissions.IsAuthenticated',
-# #     ),
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'sample_api.authentication.ExpiringTokenAuthentication'
-#
-# #         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-# #         'rest_framework.authentication.SessionAuthentication',
-# #         'rest_framework.authentication.BasicAuthentication',
-# #         'rest_framework.authentication.TokenAuthentication',
-#     ),
-# }
-
-TOKEN_EXPIRED_AFTER_SECONDS = 30 * 60
-
-# JWT_AUTH = {
-#     'JWT_SECRET_KEY': SECRET_KEY,
-#     'JWT_ALGORITHM': 'HS256',
-#     'JWT_ALLOW_REFRESH': True,
-#     'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=3),
-#     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(minutes=30),
-# }
+TOKEN_EXPIRED_AFTER_SECONDS = 3 * 60
