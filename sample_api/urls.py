@@ -8,7 +8,7 @@ router = DefaultRouter()
 
 urlpatterns = [
 
-    path('login/', views.UserLoginApiView.as_view()),
+    path('login', views.UserLoginApiView.as_view()),
     path('users/<int:user_id>/accounts', views.AccountApiView.as_view()),
     path('users/<int:user_id>/deposit', views.DepositWithdrawApiView.as_view(), name='deposit'),
     path('users/<int:user_id>/withdraw', views.DepositWithdrawApiView.as_view(), name='withdraw'),

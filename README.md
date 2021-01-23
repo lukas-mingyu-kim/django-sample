@@ -7,7 +7,10 @@ $ python manage.py migrate
 #### 2. Run Locally
 $ python manage.py runserver 0.0.0.0:8000
 
-## Requests
+## Test
+$ python manage.py test
+
+## API
 #### 1. Authorize
 Call login API like below with inserted card number and pin number
 ```
