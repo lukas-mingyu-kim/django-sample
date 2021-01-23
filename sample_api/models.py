@@ -5,24 +5,19 @@ from django.contrib.auth.models import BaseUserManager
 from django.conf import settings
 
 
-class UserProfileManager(BaseUserManager):
+class AtmUserManager(BaseUserManager):
 
-    def create_user(self, email, name, password=None):
-        if not email:
-            raise ValueError('User must have an email address')
-
-        email = self.normalize_email(email)
-        user = self.model(email=email, name=name)
-        
+    def create_user(self, card_num, password=None):
+        if not card_num:
+            raise ValueError('User must have an card num')
+        user = self.model(card_num=card_num)
         user.set_password(password)
         user.save(using=self._db)
 
         return user
 
-    def create_superuser(self, email, name, password):
-        """Create and save a new superuser with given details"""
-        user = self.create_user(email, name, password)
-
+    def create_superuser(self, card_num, password=None):
+        user = self.create_user(card_num, password)
         user.is_superuser = True
         user.is_staff = True
         user.save(using=self._db)
@@ -30,16 +25,23 @@ class UserProfileManager(BaseUserManager):
         return user
 
 
-class UserProfile(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255)
+class AtmUser(AbstractBaseUser, PermissionsMixin):
+    card_num = models.CharField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    objects = UserProfileManager()
+    objects = AtmUserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name']
+    USERNAME_FIELD = 'card_num'
+
+
+class Account(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+    account_num = models.CharField(max_length=30, unique=True)
+    balance = models.IntegerField(default=0)
 
 
 class ProfileFeedItem(models.Model):

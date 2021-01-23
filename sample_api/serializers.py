@@ -4,14 +4,28 @@ from sample_api import models
 
 
 class AtmSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=10)
+    card_num = serializers.CharField(max_length=10)
 
 
-class UserProfileSerializer(serializers.ModelSerializer):
+class BalanceSerializer(serializers.Serializer):
+    account_num = serializers.CharField(max_length=20)
+    amount = serializers.IntegerField()
+
+
+class AtmLoginSerializer(serializers.Serializer):
+    card_num = serializers.CharField(max_length=20)
+    pin_num = serializers.CharField(max_length=6)
+
+
+
+
+
+
+class AtmUserSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.UserProfile
-        fields = ('id', 'email', 'name', 'password')
+        model = models.AtmUser
+        fields = ('id', 'card_num', 'password')
         extra_kwargs = {
             'password': {
                 'write_only': True,
@@ -20,9 +34,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        user = models.UserProfile.objects.create_user(
-            email=validated_data['email'],
-            name=validated_data['name'],
+        user = models.AtmUser.objects.create_user(
+            card_num=validated_data['card_num'],
             password=validated_data['password'],
         )
         return user
@@ -42,3 +55,9 @@ class ProfileFeedItemSerializer(serializers.ModelSerializer):
         extra_kwargs = {'user_profile': {'read_only': True}}
 
 
+class AccountSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Account
+        fields = ('account_num', 'user', 'balance')
+        extra_kwargs = {'user': {'read_only': True}}
